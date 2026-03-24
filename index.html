@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joaquim Amado — Tecnologia & Inclusão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:      #0f1117;
+    --ink2:     #3d3f4a;
+    --ink3:     #7a7d8a;
+    --paper:    #f5f3ee;
+    --cream:    #ede9e0;
+    --accent:   #1a4fd6;
+    --accent2:  #0e8c6e;
+    --line:     rgba(15,17,23,0.1);
+    --serif:    'DM Serif Display', Georgia, serif;
+    --sans:     'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 4rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    letter-spacing: .02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: .85rem; font-weight: 500; letter-spacing: .06em;
+    text-transform: uppercase; color: var(--ink2);
+    text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 4rem;
+    border-right: 1px solid var(--line);
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: .75rem; font-weight: 500; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent2);
+    margin-bottom: 2rem;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 4vw, 4rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .hero-name em {
+    font-style: italic; color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1rem; color: var(--ink3);
+    max-width: 38ch; margin-bottom: 3rem; line-height: 1.7;
+  }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 3rem; }
+  .pill {
+    font-size: .78rem; font-weight: 500; letter-spacing: .04em;
+    padding: .45rem 1rem; border-radius: 999px;
+    border: 1px solid var(--line); color: var(--ink2);
+    background: white;
+  }
+  .btn-primary {
+    display: inline-block;
+    background: var(--ink); color: var(--paper);
+    font-size: .85rem; font-weight: 500; letter-spacing: .06em;
+    text-transform: uppercase; text-decoration: none;
+    padding: .85rem 2rem; border-radius: 4px;
+    transition: background .2s, transform .15s;
+    width: fit-content;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+
+  .hero-right {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 4rem;
+    background: var(--cream);
+    position: relative; overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute; top: -120px; right: -120px;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+  }
+  .hero-right::after {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+  }
+  .hero-highlight {
+    background: white;
+    border-left: 3px solid var(--accent2);
+    padding: 1.8rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0 8px 8px 0;
+    position: relative; z-index: 1;
+  }
+  .hero-highlight .label {
+    font-size: .7rem; letter-spacing: .12em; text-transform: uppercase;
+    font-weight: 500; color: var(--accent2); margin-bottom: .5rem;
+  }
+  .hero-highlight p { font-size: .9rem; color: var(--ink2); line-height: 1.65; }
+
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .stat {
+    background: var(--cream);
+    padding: 1.4rem 1.6rem;
+  }
+  .stat-num {
+    font-family: var(--serif); font-size: 2rem;
+    color: var(--ink); line-height: 1;
+  }
+  .stat-label { font-size: .78rem; color: var(--ink3); margin-top: .3rem; }
+
+  /* SECTION DEFAULTS */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: .72rem; font-weight: 500; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem; display: block;
+  }
+  .section-title {
+    font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--ink); line-height: 1.15; margin-bottom: 1.5rem;
+  }
+  .section-divider {
+    width: 40px; height: 2px; background: var(--accent2); margin-bottom: 3rem;
+  }
+
+  /* SOBRE */
+  #sobre {
+    background: white;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: start;
+  }
+  #sobre .about-text { font-size: .96rem; color: var(--ink2); line-height: 1.8; }
+  #sobre .about-text p + p { margin-top: 1.2rem; }
+
+  .skills-grid { display: flex; flex-direction: column; gap: 1rem; }
+  .skill-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    border: 1px solid var(--line); border-radius: 8px;
+    background: var(--paper);
+    transition: border-color .2s, transform .15s;
+  }
+  .skill-item:hover { border-color: var(--accent); transform: translateX(4px); }
+  .skill-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent2); flex-shrink: 0;
+  }
+  .skill-name { font-size: .88rem; font-weight: 500; color: var(--ink); }
+
+  /* CONTATO */
+  #contato {
+    background: var(--ink);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: center;
+  }
+  #contato .section-label { color: var(--accent2); }
+  #contato .section-title { color: var(--paper); }
+  #contato .section-divider { background: var(--accent); }
+  #contato .contact-sub { color: rgba(245,243,238,.6); font-size: .95rem; line-height: 1.7; }
+
+  .contact-cards { display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-card {
+    display: flex; align-items: center; gap: 1.4rem;
+    padding: 1.4rem 1.6rem;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+  }
+  .contact-card:hover {
+    background: rgba(255,255,255,.09);
+    border-color: rgba(255,255,255,.25);
+  }
+  .contact-icon {
+    width: 42px; height: 42px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-icon.email  { background: rgba(26,79,214,.25); }
+  .contact-icon.whats  { background: rgba(14,140,110,.25); }
+  .contact-icon.web    { background: rgba(245,243,238,.08); }
+  .contact-info-label { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(245,243,238,.45); margin-bottom: .15rem; }
+  .contact-info-value { font-size: .92rem; color: var(--paper); font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,.06);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p { font-size: .8rem; color: rgba(245,243,238,.35); }
+  .footer-site { font-size: .8rem; color: var(--accent2); text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    opacity: 0; animation: fadeUp .7s ease forwards;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: .1s; }
+  .hero-left > *:nth-child(2) { animation-delay: .22s; }
+  .hero-left > *:nth-child(3) { animation-delay: .34s; }
+  .hero-left > *:nth-child(4) { animation-delay: .46s; }
+  .hero-left > *:nth-child(5) { animation-delay: .58s; }
+
+  .hero-right > * {
+    opacity: 0; animation: fadeUp .7s ease forwards;
+  }
+  .hero-right > *:nth-child(1) { animation-delay: .55s; }
+  .hero-right > *:nth-child(2) { animation-delay: .7s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 4rem 1.5rem 3rem; border-right: none; border-bottom: 1px solid var(--line); }
+    .hero-right { padding: 3rem 1.5rem 4rem; }
+    #sobre, #contato { grid-template-columns: 1fr; gap: 3rem; }
+    section { padding: 4rem 1.5rem; }
+    footer { flex-direction: column; gap: .5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#inicio">Joaquim Amado</a>
+  <ul class="nav-links">
+    <li><a href="#inicio">Início</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="inicio" class="hero">
+  <div class="hero-left">
+    <span class="hero-tag">Tecnologia · Inclusão · Inovação</span>
+    <h1 class="hero-name">Joaquim<br>Amado <em>da Silva</em><br>Júnior</h1>
+    <p class="hero-sub">Transformando conhecimento em soluções digitais acessíveis, com foco em tecnologia, educação e inclusão da comunidade surda.</p>
+    <div class="hero-pills">
+      <span class="pill">Desenvolvimento de Sistemas</span>
+      <span class="pill">Acessibilidade em LIBRAS</span>
+      <span class="pill">Inovação Tecnológica</span>
+    </div>
+    <a class="btn-primary" href="#contato">Entre em contato</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-highlight">
+      <div class="label">✦ Destaque</div>
+      <p>Atuação em projetos que unem tecnologia e inclusão, como desenvolvimento de glossários digitais e soluções acessíveis para a comunidade surda.</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">C#</div>
+        <div class="stat-label">Python · .NET</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">TI</div>
+        <div class="stat-label">Eng. de Software</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">DB</div>
+        <div class="stat-label">Banco de dados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">♿</div>
+        <div class="stat-label">Acessibilidade</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div>
+    <span class="section-label">Sobre mim</span>
+    <h2 class="section-title">Tecnologia que<br>reduz barreiras</h2>
+    <div class="section-divider"></div>
+    <div class="about-text">
+      <p>Sou Joaquim Amado da Silva Júnior, profissional da área de tecnologia com experiência em desenvolvimento de sistemas, educação tecnológica e inclusão digital.</p>
+      <p>Tenho formação em Tecnologia da Informação, com especialização em Engenharia de Software e atuação acadêmica voltada à diversidade e inclusão.</p>
+      <p>Atualmente, desenvolvo pesquisas e projetos que integram tecnologia com acessibilidade, especialmente para a comunidade surda. Acredito que a tecnologia deve ser acessível para todos, e trabalho para construir soluções que reduzam barreiras e ampliem oportunidades.</p>
+    </div>
+  </div>
+  <div>
+    <span class="section-label">Competências</span>
+    <div class="skills-grid">
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Desenvolvimento de aplicações (C#, Python, .NET)</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Banco de dados e sistemas</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Projetos de inovação tecnológica</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Criação de soluções acessíveis em LIBRAS</span></div>
+      <div class="skill-item"><div class="skill-dot"></div><span class="skill-name">Educação e capacitação tecnológica</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div>
+    <span class="section-label">Contato</span>
+    <h2 class="section-title">Vamos construir<br>algo juntos?</h2>
+    <div class="section-divider"></div>
+    <p class="contact-sub">Entre em contato para projetos, parcerias ou dúvidas. Estou disponível para colaborações que envolvam tecnologia, educação e inclusão.</p>
+  </div>
+  <div class="contact-cards">
+    <a class="contact-card" href="mailto:joaquimamado@email.com">
+      <div class="contact-icon email">✉</div>
+      <div>
+        <div class="contact-info-label">Email</div>
+        <div class="contact-info-value">joaquimamado@email.com</div>
+      </div>
+    </a>
+    <a class="contact-card" href="https://wa.me/5521998859026" target="_blank" rel="noopener">
+      <div class="contact-icon whats">📱</div>
+      <div>
+        <div class="contact-info-label">WhatsApp</div>
+        <div class="contact-info-value">+55 21 99885-9026</div>
+      </div>
+    </a>
+    <a class="contact-card" href="https://joaquimamadoinfo.vercel.app" target="_blank" rel="noopener">
+      <div class="contact-icon web">🌐</div>
+      <div>
+        <div class="contact-info-label">Site</div>
+        <div class="contact-info-value">joaquimamadoinfo.vercel.app</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Joaquim Amado da Silva Júnior — Todos os direitos reservados</p>
+  <a class="footer-site" href="https://joaquimamadoinfo.vercel.app" target="_blank">joaquimamadoinfo.vercel.app</a>
+</footer>
+
+</body>
+</html>
